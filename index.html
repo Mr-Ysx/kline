@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>行情</title>
+	<meta name="viewport"
+		content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<meta charset="utf-8" />
+</head>
+<link rel="stylesheet" href="./css/style.css" />
+
+<body>
+	<div class="root">
+		<div class="back">
+			<img class="back-img" src="./img/return.png">
+			<span data-i18n="return">返回</span>
+		</div>
+		<div class="header">
+			<!-- 顶部信息栏（示例写死，可后续用实时数据替换） -->
+			<div class="header-row-top">
+				<div class="header-symbol">
+					<span class="header-symbol-title">BNB/USDT</span>
+					<span class="header-symbol-tag" data-i18n="spot">现货</span>
+					<div class="symbol-dropdown" style="display: none;"></div>
+				</div>
+			</div>
+
+			<div class="header-row-price">
+				<div>
+					<div class="header-price-main" id="lastPrice"></div>
+					<div class="header-price-sub" id="lastPriceUsd">≈1.256 USDT</div>
+				</div>
+				<div class="header-change">
+					<div class="header-change-value" id="changeValue"></div>
+					<div class="header-change-percent" id="changePercent"><span></span></div>
+				</div>
+			</div>
+
+			<div class="header-row-stats">
+				<div class="header-stat-item">
+					<span class="header-stat-label" data-i18n="high24h">24h最高</span>
+					<span class="header-stat-value" id="high24h">878.0</span>
+				</div>
+				<div class="header-stat-item">
+					<span class="header-stat-label" data-i18n="low24h">24h最低</span>
+					<span class="header-stat-value" id="low24h">820.1</span>
+				</div>
+				<div class="header-stat-item">
+					<span class="header-stat-label" data-i18n="vol24h">24h成交量(BNB)</span>
+					<span class="header-stat-value" id="vol24h">8.59K</span>
+				</div>
+			</div>
+
+			<!-- 为兼容 index.js 的产品切换逻辑，这里保留一个隐藏的 symbol 区域 -->
+			<div id="symbol" class="symbol" style="display: none;">
+				<span class="active" data-value="bnbusdt">BNB/USDT</span>
+			</div>
+
+			<!-- <div class="times-wrapper">
+				<div class="times" id="interval">
+					<span data-value="1">分时</span>
+					<span class="active" data-value="5">5分钟</span>
+					<span data-value="15">15分钟</span>
+					<span data-value="60">1小时</span>
+					<span data-value="240">4小时</span>
+					<span data-value="1D">日线</span>
+				</div>
+			</div> -->
+		</div>
+		<div class="chart">
+			<div id="kline_container"></div>
+		</div>
+		<!-- 底部订单信息区域（示例静态结构，可替换为实时数据） -->
+		<div class="orders">
+			<div class="orders-tabs">
+				<div class="orders-tab active" data-i18n="order">订单薄</div>
+				<div class="orders-tab" data-i18n="newcj">最新成交</div>
+			</div>
+			<div class="orders-book">
+				<div class="orders-col">
+					<div class="orders-header">
+						<span data-i18n="amount">价格(USDT)</span>
+						<span data-i18n="number">数量(BNB)</span>
+					</div>
+					<div id="sell-orders">
+						<div class="orders-row sell">
+							<div class="orders-row-bg sell" style="width: 60%;"></div>
+							<div class="orders-row-content">
+								<span>834.5</span>
+								<span>6.544</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="orders-col">
+					<div class="orders-header">
+						<span data-i18n="amount">价格(USDT)</span>
+						<span data-i18n="number">数量(BNB)</span>
+					</div>
+					<div id="buy-orders">
+						<div class="orders-row buy">
+							<div class="orders-row-bg buy" style="width: 60%;"></div>
+							<div class="orders-row-content">
+								<span>834.5</span>
+								<span>6.544</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="orders-book">
+				<div style="width: 100%;">
+					<div class="new-orders">
+						<span data-i18n="amount">价格(USDT)</span>
+						<span data-i18n="number">数量(BNB)</span>
+						<span data-i18n="time">时间</span>
+					</div>
+					<div id="new-orders-lists">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 1. 先加载 jQuery -->
+	<script src="./js/jquery.min.js"></script>
+
+	<!-- 2. 再加载 STOMP.js（必须在 data.js 之前！） -->
+	<script src="./js/stomp.min.js"></script>
+
+	<!--图表库js-->
+	<script src="./charting_library/charting_library.min.js"></script>
+	<!--图表数据获取-->
+	<!-- <script src="./datafeed.js"></script>  之前火币的数据，不需要了-->
+	<script src="./charting_library/bitrade.js"></script>
+
+	<!-- webUni -->
+	<script src="./js/uni.webview.1.5.7.js"></script>
+
+
+	<!-- 5. tradingview 配置 -->
+	<script src="./js/config.js"></script>
+
+	<!-- websocket -->
+	<script src="./js/websocket.js"></script>
+
+	<!-- 国际化语言 -->
+	<script src="./i18n/index.js"></script>
+
+	<script>
+		$(function () {
+			// 确保 DOM 和所有依赖都 ready
+			function plusReady() {
+				var ws = plus.webview.currentWebview();
+				ws.overrideUrlLoading({
+					mode: 'reject'
+				}, function (e) {
+					console.log('拦截跳转 url: ' + e.url);
+				})
+			}
+			document.addEventListener('plusready', plusReady, false);
+
+			// 获取传递的参数 并设置值
+			const urlParams = new URLSearchParams(window.location.search);
+			const paramsStr = urlParams.get('params');
+
+			var currentSymbol = 'BTC/USDT'
+			var wsUrl = 'ws://api.rwa-e.cn/market/market-ws-app'
+			var memberId = '600811'
+			var host = 'http://api.rwa-e.cn/'
+			var lang = 'en_US'
+			if (paramsStr) {
+				try {
+					// 先 decodeURIComponent，再 JSON.parse
+					const params = JSON.parse(decodeURIComponent(paramsStr));
+					if (params.currentSymbol) {
+						$('.header-symbol-title').html(params.currentSymbol);
+						currentSymbol = params.currentSymbol ?? 'BTC/USDT'
+						wsUrl = params.wsUrl
+						memberId = params.memberId
+						host = params.host
+						lang = params.lang
+					}
+					// 在这里使用 params，比如渲染页面、调用函数等
+				} catch (e) {
+					console.error('参数解析失败:', e);
+				}
+			} else {
+				console.warn('未接收到 params 参数');
+			}
+
+
+
+
+
+			// 底部tab切换
+			const $tabs = $('.orders-tab');
+			const $books = $('.orders-book');
+
+			// 初始化：只显示第一个 book
+			$books.hide().first().show();
+
+			$tabs.on('click', function () {
+				$tabs.removeClass('active');
+				$(this).addClass('active');
+				const index = $(this).index();
+				$books.hide().eq(index).show();
+			});
+
+
+			// chart 数据请求
+			startWebsock(currentSymbol, wsUrl, memberId, host); // 假设这是你在 data.js 中定义的函数
+			getplatemini(host, currentSymbol)
+			getLatesttrade(host, currentSymbol)
+			getSymbolThumb(host, currentSymbol)
+			//语言
+			setLanguage(lang)
+
+			window.addEventListener('beforeunload', () => {
+				console.log('页面即将退出')
+				stopWebSocket()
+			})
+			window.addEventListener('pagehide', () => {
+				console.log('页面隐藏 / 退出')
+				stopWebSocket()
+			})
+			document.addEventListener('visibilitychange', () => {
+				if (document.visibilityState === 'hidden') {
+					console.log('页面进入后台')
+					stopWebSocket()
+				} else {
+					console.log('页面回到前台')
+					// startWebsock(currentSymbol, wsUrl, memberId, host); // 假设这是你在 data.js 中定义的函数
+				}
+			})
+
+
+			// 点击返回上一页
+			const $back = $('.back')
+			window.webUni = uni.webView;
+			$back.on('click', function () {
+				webUni.navigateBack({delta: 2})
+				// window.addEventListener('popstate', function () {
+				// 	// 如果需要处理浏览器历史，可以在这里做
+				// 	window.parent.postMessage({ action: 'goBack' }, '*');
+				// });
+				// webUni.postMessage({
+				// 	data: { action: 'goBack', message: '用户点击了返回' }
+				// });
+			});
+
+
+			// 币种切换 点击标题显示/隐藏下拉
+			const titleEl = $('.header-symbol-title')[0];
+			const dropdownEl = $('.symbol-dropdown')[0];
+			// const dropdownItems = dropdownEl.querySelectorAll('.dropdown-item');
+
+			titleEl.addEventListener('click', (e) => {
+				e.stopPropagation();
+				dropdownEl.style.display = dropdownEl.style.display === 'block' ? 'none' : 'block';
+			});
+
+			// 事件委托：监听 dropdown 内的点击事件
+			dropdownEl.addEventListener('click', (e) => {
+				e.stopPropagation(); // 阻止事件冒泡到 document
+				const target = e.target.closest('.dropdown-item');
+				console.log(target)
+				if (target) {
+					const selectedSymbol = target.textContent;  // ✅ 获取文本内容
+					currentSymbol = selectedSymbol;
+					dropdownEl.style.display = 'none';
+					console.log('选择的币种:', selectedSymbol);
+
+					// // 更新图表 / 数据
+					stopWebSocket();
+					startWebsock(currentSymbol, wsUrl, memberId, host);
+					getplatemini(host, currentSymbol);
+					getLatesttrade(host, currentSymbol);
+					symbolChange(currentSymbol)
+				}
+			});
+
+
+		});
+
+
+	</script>
+
+</body>
+
+</html>

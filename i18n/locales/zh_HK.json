@@ -1,0 +1,14 @@
+{
+  "spot": "現貨",
+  "description": "這是一個示例頁面。",
+  "btn_ok": "確定",
+  "high24h": "24h 最高",
+  "low24h": "24h 最低",
+  "vol24h": "24h 成交量",
+  "order": "訂單簿",
+  "newcj": "最新成交",
+  "amount": "價格",
+  "number": "數量",
+  "time": "時間",
+  "return":"返回"
+}

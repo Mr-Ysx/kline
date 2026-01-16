@@ -1,0 +1,14 @@
+{
+  "spot": "Spot",
+  "description": "This is a sample page.",
+  "btn_ok": "OK",
+  "high24h": "24h High",
+  "low24h": "24h Low",
+  "vol24h": "24h Volume",
+  "order": "Order Book",
+  "newcj": "Latest Trades",
+  "amount": "Price",
+  "number": "Quantity",
+  "time": "Time",
+  "return":"Back"
+}

@@ -1,0 +1,407 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	/* background-color: #050812; */
+	color: #ffffff;
+	font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, "Microsoft Yahei", sans-serif;
+}
+
+.root {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	/* background-color: #050812; */
+}
+
+/* 顶部整体区域，仿币安行情顶部 */
+.header {
+	padding: 10px 12px 8px;
+	/* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6); */
+	/* background: linear-gradient(180deg, #050812 0%, #0b111f 100%); */
+}
+
+/* 第一行：交易对 + 标签 + 右侧图标位（预留） */
+.header-row-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 6px;
+}
+
+.header-symbol {
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+	font-size: 18px;
+	font-weight: 600;
+	/* color: #ffffff; */
+	color: #050812;
+	position: relative;
+}
+
+.header-symbol-tag {
+	font-size: 11px;
+	padding: 1px 4px;
+	border-radius: 3px;
+	background-color: rgba(255, 255, 255, 0.06);
+	color: #9fa4bb;
+}
+
+.header-symbol-leverage {
+	font-size: 11px;
+	padding: 1px 4px;
+	border-radius: 3px;
+	background-color: rgba(21, 127, 213, 0.18);
+	color: #4da3ff;
+}
+
+/* 第二行：最新价 + 涨跌幅 */
+.header-row-price {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 8px;
+}
+
+.header-price-main {
+	font-size: 28px;
+	font-weight: 600;
+	color: #f6465d;
+}
+
+.header-price-sub {
+	font-size: 12px;
+	color: #9fa4bb;
+	margin-top: 2px;
+}
+
+.header-change {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	font-size: 12px;
+}
+
+.header-change-value {
+	color: #f6465d;
+	margin-bottom: 2px;
+}
+
+.header-change-percent {
+	padding: 2px 6px;
+	border-radius: 4px;
+	font-size: 12px;
+
+}
+
+.red {
+	background-color: rgba(246, 70, 93, 0.18);
+	color: #f6465d;
+}
+
+.green {
+	background-color: rgba(21, 127, 213, 0.18);
+	color: #0ecb81;
+}
+
+/* 第三行：24h 统计信息 */
+.header-row-stats {
+	display: flex;
+	justify-content: space-between;
+	font-size: 11px;
+	color: #7c8bac;
+}
+
+.header-stat-item {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.header-stat-label {
+	color: #2E201F;
+}
+
+.header-stat-value {
+	color: #787170;
+}
+
+/* 时间周期栏，紧贴在 header 底部 */
+.times-wrapper {
+	margin-top: 10px;
+	padding: 6px 0 0;
+	border-top: 1px solid rgba(44, 56, 88, 0.6);
+}
+
+.times {
+	display: flex;
+	justify-content: space-between;
+}
+
+.times span {
+	flex: 1;
+	height: 30px;
+	line-height: 30px;
+	color: #7c8bac;
+	font-size: 14px;
+	text-align: center;
+}
+
+.times span.active {
+	position: relative;
+	color: #f0f4ff;
+	font-weight: 500;
+}
+
+.times span.active:before {
+	content: " ";
+	position: absolute;
+	bottom: -2px;
+	left: 20%;
+	z-index: 1;
+	width: 60%;
+	height: 2px;
+	background-color: #f5c451;
+	border-radius: 999px;
+}
+
+/* 中间 K 线区域 */
+.chart {
+	height: 52vh;
+	min-height: 260px;
+	background-color: #050812;
+}
+
+#kline_container {
+	width: 100%;
+	height: 100%;
+	background: #ffffff;
+	border-bottom: 1px solid rgba(44, 56, 88, 0.8);
+	border-top: 1px solid rgba(44, 56, 88, 0.8);
+}
+
+iframe {
+	width: 100%;
+	height: 100% !important;
+}
+
+.pane-legend-line.pane-legend-wrap.main.expand-line {
+	padding-right: 5px;
+}
+
+/* 底部订单信息区域 */
+.orders {
+	flex: 1;
+	min-height: 180px;
+	/* background-color: #050812; */
+	/* border-top: 1px solid rgba(44, 56, 88, 0.8); */
+	padding: 8px 12px 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.orders-tabs {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	font-size: 13px;
+	color: #2E201F;
+}
+
+.orders-tab {
+	position: relative;
+}
+
+.orders-tab.active {
+	/* color: #f0f4ff; */
+	font-weight: 500;
+}
+
+.orders-tab.active::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -4px;
+	width: 100%;
+	height: 2px;
+	border-radius: 999px;
+	background-color: #f5c451;
+}
+
+.orders-book {
+	display: flex;
+	gap: 8px;
+	flex: 1;
+	min-height: 0;
+	font-size: 12px;
+}
+
+.orders-col {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	color: #9fa4bb;
+}
+
+.orders-header {
+	display: flex;
+	justify-content: space-between;
+	color: #787170;
+}
+
+.orders-row {
+	display: flex;
+	justify-content: space-between;
+	/* padding: 1px 4px; */
+    position: relative;
+	color: #050812;
+}
+.orders-row>span{
+	width: 33%;
+	text-align: right;
+}
+.orders-row>span:nth-child(1){
+	text-align: left;
+}
+.orders-row>span:nth-child(2){
+	text-align: center;
+}
+
+.orders-row.buy {
+	color: #0ecb81;
+}
+
+.orders-row.sell {
+	color: #f6465d;
+}
+
+.orders-row-bg {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 0;
+	border-radius: 2px;
+}
+
+.orders-row-content {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.orders-row-bg.buy {
+	background: linear-gradient(270deg, rgba(14, 203, 129, 0.18), transparent);
+}
+
+.orders-row-bg.sell {
+	background: linear-gradient(270deg, rgba(246, 70, 93, 0.18), transparent);
+}
+
+.orders-footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-top: 2px;
+}
+
+.orders-footer-info {
+	font-size: 11px;
+	color: #7c8bac;
+}
+
+.orders-footer-btn {
+	flex-shrink: 0;
+	padding: 8px 26px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, #f0b90b, #f8d33a);
+	color: #050812;
+	font-size: 14px;
+	font-weight: 600;
+	text-align: center;
+}
+
+.new-orders {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	color: #787170;
+}
+
+.new-orders>span{
+	width: 33%;
+	text-align: right;
+}
+.new-orders>span:nth-child(1){
+	text-align: left;
+}
+.new-orders>span:nth-child(2){
+	text-align: center;
+}
+
+.back {
+	padding-top: 30px;
+	display: flex;
+	align-items: center;
+	color: #050812;
+}
+
+.back-img {
+	width: 34px;
+	height: 34px;
+}
+
+/* 下拉列表 */
+/* symbol-dropdown 下拉样式 */
+.symbol-dropdown {
+    position: absolute; /* 悬浮，不影响其他布局 */
+    top: 100%;          /* 紧贴标题下方 */
+    left: 0;
+    width: 150px;       /* 可根据需要调整宽度 */
+    max-height: 200px;  /* 超出高度可滚动 */
+    overflow-y: auto;
+    /* background-color: #1e1e2f; */
+    /* border: 1px solid #333; */
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 9999;      /* 保证悬浮在最上层 */
+    display: none;      /* 默认隐藏 */
+    padding: 5px 0;
+	background: #ffffff;
+}
+
+.symbol-dropdown .dropdown-item {
+    padding: 8px;
+    cursor: pointer;
+    /* color: #fff; */
+	color:#050812;
+    font-size: 12px;
+    transition: background 0.2s;
+}
+
+.symbol-dropdown .dropdown-item:hover {
+    background-color: #3a3a50;
+}
+
+/* 滚动条美化 */
+.symbol-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.symbol-dropdown::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 3px;
+}
+
+.symbol-dropdown::-webkit-scrollbar-track {
+    background-color: transparent;
+}
