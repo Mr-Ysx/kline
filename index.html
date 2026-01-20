@@ -240,7 +240,7 @@
 			const $back = $('.back')
 			window.webUni = uni.webView;
 			$back.on('click', function () {
-				webUni.navigateBack({delta: 2})
+				webUni.navigateBack({ delta: 1 })
 				// window.addEventListener('popstate', function () {
 				// 	// 如果需要处理浏览器历史，可以在这里做
 				// 	window.parent.postMessage({ action: 'goBack' }, '*');

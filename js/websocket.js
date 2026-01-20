@@ -345,13 +345,18 @@ function newOrders(data) {
 
 // 时间转化
 function formatTime(timestamp) {
-	const date = new Date(timestamp);
-	const y = date.getFullYear();
-	const m = String(date.getMonth() + 1).padStart(2, '0');
-	const d = String(date.getDate()).padStart(2, '0');
-	return `${y}-${m}-${d}`
-	// console.log(`${y}-${m}-${d}`);
+  const date = new Date(timestamp);
+
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  const h = String(date.getHours()).padStart(2, '0');
+  const min = String(date.getMinutes()).padStart(2, '0');
+  const s = String(date.getSeconds()).padStart(2, '0');
+	//${y}-${m}-${d} 
+  return `${h}:${min}:${s}`;
 }
+
 
 // 渲染下拉选项
 function renderDropdown(lists) {
