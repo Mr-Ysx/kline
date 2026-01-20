@@ -1,4 +1,5 @@
 function getLang4K(curlang) {
+	console.log(curlang)
 	if (curlang == 'en_US') {
 		return 'en'
 	}
@@ -39,6 +40,7 @@ function getLang4K(curlang) {
 }
 
 function getTimezone4K(curlang){
+	console.log(curlang)
 		if(curlang=="en_US"){
 			return "America/Los_Angeles";
 		}
@@ -78,8 +80,8 @@ function getKline(options) {
 	var symbol = options.symbol; // BTCUSDT
 	var datafeed = options.datafeed; // new WebsockFeed(...)
 	var skin = options.skin || 'night'; // day / night
-	var lang = getLang4K(options.lang) || 'zh';
-	var timezone =getTimezone4K(options.timezone) || 'Asia/Hong_Kong';
+	var lang = getLang4K(options.lang) || 'en';
+	var timezone =getTimezone4K(options.lang) || 'America/Los_Angeles';
 
 	var config = {
 		autosize: true,

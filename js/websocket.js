@@ -18,7 +18,7 @@ let isConnected = false; // 全局状态标记
 
 
 // 关闭旧连接
-function startWebsock(currentSymbol, wsUrl, memberId, host) {
+function startWebsock(currentSymbol, wsUrl, memberId, host,lang) {
 	if (typeof StompJs === 'undefined') {
 		alert('❌ STOMP 库未加载成功！请检查 stompjs.js 是否正确引入。');
 	} else {
@@ -49,7 +49,8 @@ function startWebsock(currentSymbol, wsUrl, memberId, host) {
 			)
 			getKline({
 				symbol: currentSymbol,
-				datafeed: datafeed
+				datafeed: datafeed,
+				lang: lang
 			})
 
 
