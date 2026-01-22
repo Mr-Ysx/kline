@@ -104,7 +104,7 @@ body {
 }
 
 .green {
-	background-color: rgba(21, 127, 213, 0.18);
+	background-color: rgba(14, 203, 129, 0.18);
 	color: #0ecb81;
 }
 
@@ -247,6 +247,7 @@ iframe {
 	flex-direction: column;
 	gap: 4px;
 	color: #9fa4bb;
+	padding-bottom: 70px;
 }
 
 .orders-header {
@@ -404,4 +405,21 @@ iframe {
 
 .symbol-dropdown::-webkit-scrollbar-track {
     background-color: transparent;
+}
+.btns {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	background: #ffffff;
+	padding: 10px 0;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 100;
+	box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+}
+.btn-item {
+	padding: 10px 60px;
+	/* box-sizing: border-box; */
+	border-radius: 8px;
 }

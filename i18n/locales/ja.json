@@ -10,5 +10,7 @@
   "amount": "価格",
   "number": "数量",
   "time": "時間",
-  "return":"戻る"
+  "return":"戻る",
+  "sell": "売る",
+  "buy": "買う"
 }

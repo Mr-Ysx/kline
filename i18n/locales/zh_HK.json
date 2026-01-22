@@ -10,5 +10,7 @@
   "amount": "價格",
   "number": "數量",
   "time": "時間",
-  "return":"返回"
+  "return": "返回",
+  "sell": "賣出",
+  "buy": "買入"
 }

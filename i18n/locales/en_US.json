@@ -10,5 +10,7 @@
   "amount": "Price",
   "number": "Quantity",
   "time": "Time",
-  "return":"Back"
+  "return":"Back",
+  "sell": "Sell",
+  "buy": "Buy"
 }

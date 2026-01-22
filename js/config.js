@@ -97,7 +97,7 @@ function getKline(options) {
 		locale: lang,
 		debug: false,
 		disabled_features: [
-			'header_indicators',
+			// 'header_indicators',
 			'header_resolutions',
 			'timeframes_toolbar',
 			'header_symbol_search',
@@ -218,7 +218,7 @@ function getKline(options) {
 		var chart = tvWidget.chart();
 
 		// 均线
-		if (window.innerWidth > 767) {
+		// if (window.innerWidth > 767) {
 			chart.createStudy('Moving Average', false, false, [5], null, {
 				'plot.color': '#EDEDED'
 			});
@@ -231,7 +231,7 @@ function getKline(options) {
 			chart.createStudy('Moving Average', false, false, [60], null, {
 				'plot.color': '#00adff'
 			});
-		}
+		// }
 
 		// ===== 自定义按钮 =====
 		const allBtns = []; // 保存所有自定义按钮
