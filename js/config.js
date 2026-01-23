@@ -39,49 +39,49 @@ function getLang4K(curlang) {
 	return curlang
 }
 
-function getTimezone4K(curlang){
+function getTimezone4K(curlang) {
 	console.log(curlang)
-		if(curlang=="en_US"){
-			return "America/Los_Angeles";
-		}
-		if(curlang=="ja"){
-			return "Asia/Tokyo";
-		}
-		if(curlang=="ko_KR"){
-			return "Asia/Seoul";
-		}
-		if(curlang=="de_DE"){
-			return "Europe/Berlin";
-		}
-		if(curlang=="fr_FR"){
-			return "Europe/Paris";
-		}
-		if(curlang=="it_IT"){
-			return "Europe/Rome";
-		}
-		if(curlang=="es_ES"){
-			return "Europe/Madrid";
-		}
-		if(curlang=="zh_HK"){
-			return "Asia/Hong_Kong";
-		}
-		if(curlang=="zh_CN"){
-			return "Asia/Shanghai";
-		}
-		if(curlang=="hi_IN"){
-			return "Asia/India";
-		}
-		if(curlang=="ru_RU"){
-			return "Europe/Russia";
-		}
-		return curlang;
+	if (curlang == "en_US") {
+		return "America/Los_Angeles";
+	}
+	if (curlang == "ja") {
+		return "Asia/Tokyo";
+	}
+	if (curlang == "ko_KR") {
+		return "Asia/Seoul";
+	}
+	if (curlang == "de_DE") {
+		return "Europe/Berlin";
+	}
+	if (curlang == "fr_FR") {
+		return "Europe/Paris";
+	}
+	if (curlang == "it_IT") {
+		return "Europe/Rome";
+	}
+	if (curlang == "es_ES") {
+		return "Europe/Madrid";
+	}
+	if (curlang == "zh_HK") {
+		return "Asia/Hong_Kong";
+	}
+	if (curlang == "zh_CN") {
+		return "Asia/Shanghai";
+	}
+	if (curlang == "hi_IN") {
+		return "Asia/India";
+	}
+	if (curlang == "ru_RU") {
+		return "Europe/Russia";
+	}
+	return curlang;
 };
 function getKline(options) {
 	var symbol = options.symbol; // BTCUSDT
 	var datafeed = options.datafeed; // new WebsockFeed(...)
 	var skin = options.skin || 'night'; // day / night
 	var lang = getLang4K(options.lang) || 'en';
-	var timezone =getTimezone4K(options.lang) || 'America/Los_Angeles';
+	var timezone = getTimezone4K(options.lang) || 'America/Los_Angeles';
 
 	var config = {
 		autosize: true,
@@ -122,6 +122,7 @@ function getKline(options) {
 			// "header_settings" // 设置
 		],
 
+
 		enabled_features: [
 			'disable_resolution_rebuild',
 			'use_localstorage_for_settings',
@@ -137,8 +138,8 @@ function getKline(options) {
 
 		overrides: {
 			'paneProperties.background': '#ffffff',
-			'paneProperties.vertGridProperties.color': '#e9ecef',
-			'paneProperties.horzGridProperties.color': '#e9ecef',
+			'paneProperties.vertGridProperties.color': '#FaFaFa',
+			'paneProperties.horzGridProperties.color': '#FaFaFa',
 			'scalesProperties.textColor': '#343a40',
 
 			// 蜡烛图颜色（上涨绿色 / 下跌红色）
@@ -161,6 +162,8 @@ function getKline(options) {
 			'mainSeriesProperties.areaStyle.color1': 'rgba(38, 166, 154, 0.2)',
 			'mainSeriesProperties.areaStyle.color2': 'rgba(38, 166, 154, 0.2)',
 			'mainSeriesProperties.areaStyle.linecolor': '#26a69a',
+
+			'scalesProperties.lineColor': 'transparent',  // 隐藏轴线颜色
 			volumePaneSize: 'small',
 		},
 
@@ -219,18 +222,24 @@ function getKline(options) {
 
 		// 均线
 		// if (window.innerWidth > 767) {
-			chart.createStudy('Moving Average', false, false, [5], null, {
-				'plot.color': '#EDEDED'
-			});
-			chart.createStudy('Moving Average', false, false, [10], null, {
-				'plot.color': '#ffe000'
-			});
-			chart.createStudy('Moving Average', false, false, [30], null, {
-				'plot.color': '#ce00ff'
-			});
-			chart.createStudy('Moving Average', false, false, [60], null, {
-				'plot.color': '#00adff'
-			});
+		// chart.createStudy('Moving Average', false, false, [5], null, {
+		// 	'plot.color': '#EDEDED'
+		// });
+		// chart.createStudy('Moving Average', false, false, [10], null, {
+		// 	'plot.color': '#ffe000'
+		// });
+		// chart.createStudy('Moving Average', false, false, [30], null, {
+		// 	'plot.color': '#ce00ff'
+		// });
+		chart.createStudy('Moving Average', false, false, [10], null, {
+			'plot.color': '#00adff'
+		});
+		// chart.createStudy('Exponential Moving Average', false, false, [30], null, {
+		// 	'plot.color': '#FF5733' // 橙红色
+		// });
+		chart.createStudy('EMA Cross', false, false, [10], null, {
+			'plot.color': '#33FF57' // 绿色
+		});
 		// }
 
 		// ===== 自定义按钮 =====
