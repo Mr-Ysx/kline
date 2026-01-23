@@ -138,8 +138,8 @@ function getKline(options) {
 
 		overrides: {
 			'paneProperties.background': '#ffffff',
-			'paneProperties.vertGridProperties.color': '#FaFaFa',
-			'paneProperties.horzGridProperties.color': '#FaFaFa',
+			'paneProperties.vertGridProperties.color': '#fcf9f9',
+			'paneProperties.horzGridProperties.color': '#fcf9f9',
 			'scalesProperties.textColor': '#343a40',
 
 			// 蜡烛图颜色（上涨绿色 / 下跌红色）

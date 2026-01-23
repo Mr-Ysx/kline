@@ -10,6 +10,10 @@ body {
 	font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, "Microsoft Yahei", sans-serif;
 }
 
+body::-webkit-scrollbar {
+	display: none;
+}
+
 .root {
 	min-height: 100vh;
 	display: flex;
@@ -180,8 +184,6 @@ body {
 	width: 100%;
 	height: 100%;
 	background: #ffffff;
-	border-bottom: 1px solid rgba(44, 56, 88, 0.8);
-	border-top: 1px solid rgba(44, 56, 88, 0.8);
 }
 
 iframe {
@@ -260,17 +262,20 @@ iframe {
 	display: flex;
 	justify-content: space-between;
 	/* padding: 1px 4px; */
-    position: relative;
+	position: relative;
 	color: #050812;
 }
-.orders-row>span{
+
+.orders-row>span {
 	width: 33%;
 	text-align: right;
 }
-.orders-row>span:nth-child(1){
+
+.orders-row>span:nth-child(1) {
 	text-align: left;
 }
-.orders-row>span:nth-child(2){
+
+.orders-row>span:nth-child(2) {
 	text-align: center;
 }
 
@@ -338,14 +343,16 @@ iframe {
 	color: #787170;
 }
 
-.new-orders>span{
+.new-orders>span {
 	width: 33%;
 	text-align: right;
 }
-.new-orders>span:nth-child(1){
+
+.new-orders>span:nth-child(1) {
 	text-align: left;
 }
-.new-orders>span:nth-child(2){
+
+.new-orders>span:nth-child(2) {
 	text-align: center;
 }
 
@@ -364,48 +371,55 @@ iframe {
 /* 下拉列表 */
 /* symbol-dropdown 下拉样式 */
 .symbol-dropdown {
-    position: absolute; /* 悬浮，不影响其他布局 */
-    top: 100%;          /* 紧贴标题下方 */
-    left: 0;
-    width: 150px;       /* 可根据需要调整宽度 */
-    max-height: 200px;  /* 超出高度可滚动 */
-    overflow-y: auto;
-    /* background-color: #1e1e2f; */
-    /* border: 1px solid #333; */
-    border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    z-index: 9999;      /* 保证悬浮在最上层 */
-    display: none;      /* 默认隐藏 */
-    padding: 5px 0;
+	position: absolute;
+	/* 悬浮，不影响其他布局 */
+	top: 100%;
+	/* 紧贴标题下方 */
+	left: 0;
+	width: 150px;
+	/* 可根据需要调整宽度 */
+	max-height: 200px;
+	/* 超出高度可滚动 */
+	overflow-y: auto;
+	/* background-color: #1e1e2f; */
+	/* border: 1px solid #333; */
+	border-radius: 6px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	z-index: 9999;
+	/* 保证悬浮在最上层 */
+	display: none;
+	/* 默认隐藏 */
+	padding: 5px 0;
 	background: #ffffff;
 }
 
 .symbol-dropdown .dropdown-item {
-    padding: 8px;
-    cursor: pointer;
-    /* color: #fff; */
-	color:#050812;
-    font-size: 12px;
-    transition: background 0.2s;
+	padding: 8px;
+	cursor: pointer;
+	/* color: #fff; */
+	color: #050812;
+	font-size: 12px;
+	transition: background 0.2s;
 }
 
 .symbol-dropdown .dropdown-item:hover {
-    background-color: #3a3a50;
+	background-color: #3a3a50;
 }
 
 /* 滚动条美化 */
 .symbol-dropdown::-webkit-scrollbar {
-    width: 6px;
+	width: 6px;
 }
 
 .symbol-dropdown::-webkit-scrollbar-thumb {
-    background-color: rgba(255,255,255,0.3);
-    border-radius: 3px;
+	background-color: rgba(255, 255, 255, 0.3);
+	border-radius: 3px;
 }
 
 .symbol-dropdown::-webkit-scrollbar-track {
-    background-color: transparent;
+	background-color: transparent;
 }
+
 .btns {
 	display: flex;
 	justify-content: space-around;
@@ -418,6 +432,7 @@ iframe {
 	z-index: 100;
 	box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
 }
+
 .btn-item {
 	padding: 10px 60px;
 	/* box-sizing: border-box; */
