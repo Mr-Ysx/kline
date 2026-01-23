@@ -122,7 +122,6 @@ function getKline(options) {
 			// "header_settings" // 设置
 		],
 
-
 		enabled_features: [
 			'disable_resolution_rebuild',
 			'use_localstorage_for_settings',
@@ -138,9 +137,10 @@ function getKline(options) {
 
 		overrides: {
 			'paneProperties.background': '#ffffff',
-			'paneProperties.vertGridProperties.color': '#fcf9f9',
-			'paneProperties.horzGridProperties.color': '#fcf9f9',
+			'paneProperties.vertGridProperties.color': '#FaFaFa',
+			'paneProperties.horzGridProperties.color': '#FaFaFa',
 			'scalesProperties.textColor': '#343a40',
+			'scalesProperties.lineColor': 'rgba(0, 0, 0, 0)',  // 隐藏轴线颜色
 
 			// 蜡烛图颜色（上涨绿色 / 下跌红色）
 			'mainSeriesProperties.candleStyle.upColor': '#26a69a',     // 上涨阳线（绿色系）
@@ -162,8 +162,7 @@ function getKline(options) {
 			'mainSeriesProperties.areaStyle.color1': 'rgba(38, 166, 154, 0.2)',
 			'mainSeriesProperties.areaStyle.color2': 'rgba(38, 166, 154, 0.2)',
 			'mainSeriesProperties.areaStyle.linecolor': '#26a69a',
-
-			'scalesProperties.lineColor': 'transparent',  // 隐藏轴线颜色
+			
 			volumePaneSize: 'small',
 		},
 
