@@ -103,13 +103,13 @@ body::-webkit-scrollbar {
 }
 
 .red {
-	background-color: rgba(246, 70, 93, 0.18);
-	color: #f6465d;
+	background: rgba(246,66,66,0.2);
+	color: #F6465D;
 }
 
 .green {
-	background-color: rgba(14, 203, 129, 0.18);
-	color: #0ecb81;
+	background: rgba(82,172,88,0.2);
+	color: #03A66D;
 }
 
 /* 第三行：24h 统计信息 */
@@ -280,11 +280,13 @@ iframe {
 }
 
 .orders-row.buy {
-	color: #0ecb81;
+	/* color: #0ecb81; */
+	color: #03A66D;
 }
 
 .orders-row.sell {
-	color: #f6465d;
+	/* color: #f6465d; */
+	color: #F6465D;
 }
 
 .orders-row-bg {
@@ -293,7 +295,7 @@ iframe {
 	right: 0;
 	bottom: 0;
 	z-index: 0;
-	border-radius: 2px;
+	/* border-radius: 2px; */
 }
 
 .orders-row-content {
@@ -305,11 +307,13 @@ iframe {
 }
 
 .orders-row-bg.buy {
-	background: linear-gradient(270deg, rgba(14, 203, 129, 0.18), transparent);
+	/* background: linear-gradient(270deg, rgba(14, 203, 129, 0.18), transparent); */
+	background: rgba(82,172,88,0.2);
 }
 
 .orders-row-bg.sell {
-	background: linear-gradient(270deg, rgba(246, 70, 93, 0.18), transparent);
+	background: rgba(246,66,66,0.2);
+	/* background: linear-gradient(270deg, rgba(246, 70, 93, 0.18), transparent); */
 }
 
 .orders-footer {

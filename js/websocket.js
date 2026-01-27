@@ -18,7 +18,7 @@ let isConnected = false; // 全局状态标记
 
 
 // 关闭旧连接
-function startWebsock(currentSymbol, wsUrl, memberId, host,lang) {
+function startWebsock(currentSymbol, wsUrl, memberId, host, lang) {
 	if (typeof StompJs === 'undefined') {
 		alert('❌ STOMP 库未加载成功！请检查 stompjs.js 是否正确引入。');
 	} else {
@@ -208,12 +208,48 @@ function getSymbolThumb(host, symbol) {
 	});
 }
 
+// 盘口数据背景长度
+function amountToPercentString(amount) {
+  // 转为字符串，去掉多余零
+  let str = amount.toString();
+  
+  // 处理科学计数法（如 6e-7）
+  if (str.includes('e')) {
+    str = parseFloat(amount).toFixed(10).replace(/0+ $ /, '');
+  }
 
+  // 去掉 "0."
+  let clean = str.replace(/^0\./, '').replace(/^0+/, ''); // 去掉前导零
+  
+  if (clean === '' || clean === '0') return '0%';
+
+  // 取前3位有效数字
+  let sig = clean.slice(0, 3);
+  
+  // 如果原始数 >= 0.1，我们除以10（避免123%）
+  if (amount >= 0.1) {
+    // 0.1234 -> "1234" -> 取 "123" -> 12.3
+    const num = parseFloat(sig.padEnd(3, '0'));
+    const scaled = num / 10; // 123 -> 12.3
+    return ` ${scaled.toFixed(scaled % 1 === 0 ? 0 : 1)}%`;
+  } else {
+    // 小于 0.1：0.00046 -> "46" -> 46%
+    // 0.00345 -> "345" -> 34.5% （取前3位，加小数点）
+    if (sig.length === 1) {
+      return ` ${sig}%`;
+    } else if (sig.length === 2) {
+      return ` ${sig}%`; // 46 → 46%
+    } else {
+      // 345 → 34.5%
+      return ` ${sig.slice(0,2)}.${sig[2]}%`;
+    }
+  }
+}
 
 // 盘口数据循环
 function sellOrderLists(lists) {
 	const sellOrders = $('#sell-orders');
-	const MAX_ROWS = 25;
+	const MAX_ROWS = 24;
 
 	sellOrders.empty();
 
@@ -222,13 +258,12 @@ function sellOrderLists(lists) {
 
 	lists.forEach(order => {
 		const { price, amount } = order;
-
 		const orderRowHtml = `
             <div class="orders-row sell">
-                <div class="orders-row-bg sell" style="width: 50%;"></div>
+                <div class="orders-row-bg sell" style="width:${amountToPercentString(amount)};"></div>
                 <div class="orders-row-content">
                     <span>${price}</span>
-                    <span>${amount}</span>
+                    <span style="color: #1A1A1A;">${amount}</span>
                 </div>
             </div>
         `;
@@ -243,7 +278,7 @@ function sellOrderLists(lists) {
             <div class="orders-row sell empty">
                 <div class="orders-row-content">
                     <span>-</span>
-                    <span>-</span>
+                    <span style="color: #1A1A1A;">-</span>
                 </div>
             </div>
         `);
@@ -255,7 +290,7 @@ function sellOrderLists(lists) {
 
 function buyOrderLists(lists) {
 	const buyOrders = $('#buy-orders');
-	const MAX_ROWS = 25;
+	const MAX_ROWS = 24;
 
 	buyOrders.empty();
 
@@ -264,13 +299,12 @@ function buyOrderLists(lists) {
 
 	lists.forEach(order => {
 		const { price, amount } = order;
-
 		const orderRowHtml = `
             <div class="orders-row buy">
-                <div class="orders-row-bg buy" style="width: 50%;"></div>
+                <div class="orders-row-bg buy" style="width: ${amountToPercentString(amount)};"></div>
                 <div class="orders-row-content">
                     <span>${price}</span>
-                    <span>${amount}</span>
+                    <span style="color: #1A1A1A;">${amount}</span>
                 </div>
             </div>
         `;
@@ -285,7 +319,7 @@ function buyOrderLists(lists) {
             <div class="orders-row buy empty">
                 <div class="orders-row-content">
                     <span>-</span>
-                    <span>-</span>
+                    <span style="color: #1A1A1A;">-</span>
                 </div>
             </div>
         `);
@@ -345,16 +379,16 @@ function newOrders(data) {
 
 // 时间转化
 function formatTime(timestamp) {
-  const date = new Date(timestamp);
+	const date = new Date(timestamp);
 
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, '0');
-  const d = String(date.getDate()).padStart(2, '0');
-  const h = String(date.getHours()).padStart(2, '0');
-  const min = String(date.getMinutes()).padStart(2, '0');
-  const s = String(date.getSeconds()).padStart(2, '0');
+	const y = date.getFullYear();
+	const m = String(date.getMonth() + 1).padStart(2, '0');
+	const d = String(date.getDate()).padStart(2, '0');
+	const h = String(date.getHours()).padStart(2, '0');
+	const min = String(date.getMinutes()).padStart(2, '0');
+	const s = String(date.getSeconds()).padStart(2, '0');
 	//${y}-${m}-${d} 
-  return `${h}:${min}:${s}`;
+	return `${h}:${min}:${s}`;
 }
 
 

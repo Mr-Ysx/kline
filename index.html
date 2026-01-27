@@ -123,8 +123,8 @@
 		</div>
 
 		<div class="btns">
-			<div class="green btn-item" data-i18n="buy">买入</div>
 			<div class="red btn-item" data-i18n="sell">卖出</div>
+			<div class="green btn-item" data-i18n="buy">买入</div>
 		</div>
 	</div>
 	<!-- 1. 先加载 jQuery -->
@@ -169,7 +169,7 @@
 			const urlParams = new URLSearchParams(window.location.search);
 			const paramsStr = urlParams.get('params');
 
-			var currentSymbol = 'BTC/USDT'
+			var currentSymbol = 'ETH/USDT'
 			var wsUrl = 'ws://api.rwa-e.cn/market/market-ws-app'
 			var memberId = '600811'
 			var host = 'http://api.rwa-e.cn/'
